@@ -30,7 +30,7 @@ on:
   workflow_dispatch:
 
 env:
-  BUILD_TYPE: Debug
+  BUILD_TYPE: Release
   VCPKG_DEFAULT_BINARY_CACHE: ${{ github.workspace }}/vcpkg-cache
 
 jobs:
@@ -122,6 +122,7 @@ jobs:
         run: |
           cmake --preset ninja-windows -DCMAKE_INSTALL_PREFIX:PATH="${{ github.workspace }}/bethutil/installdir"
           cmake --build build --config ${{ env.BUILD_TYPE }}
+          mkdir "${{ github.workspace }}/bethutil/installdir"
           cmake install
 
       - name: (main) Test
