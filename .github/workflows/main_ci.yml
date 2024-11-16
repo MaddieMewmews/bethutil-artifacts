@@ -120,9 +120,9 @@ jobs:
       - name: (main) Configure & Build
         working-directory: ${{ github.workspace }}/bethutil
         run: |
+          mkdir "${{ github.workspace }}/bethutil/installdir"
           cmake --preset ninja-windows -DCMAKE_INSTALL_PREFIX:PATH="${{ github.workspace }}/bethutil/installdir"
           cmake --build build --config ${{ env.BUILD_TYPE }}
-          mkdir "${{ github.workspace }}/bethutil/installdir"
           cmake install
 
       - name: (main) Test
