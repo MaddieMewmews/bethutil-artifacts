@@ -120,8 +120,9 @@ jobs:
       - name: (main) Configure & Build
         working-directory: ${{ github.workspace }}/bethutil
         run: |
-          cmake --preset ninja-windows
+          cmake --preset ninja-windows -DCMAKE_INSTALL_PREFIX:PATH="${{ github.workspace }}/bethutil/installdir"
           cmake --build build --config ${{ env.BUILD_TYPE }}
+          cmake install
 
       - name: (main) Test
         working-directory: ${{ github.workspace }}/bethutil/build
@@ -130,8 +131,8 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: artifact-test
-          path: ${{ github.workspace }}/bethutil/build
+          name: artifact-source
+          path: ${{ github.workspace }}/bethutil
 
           
       - name: (main) Collect code coverage
